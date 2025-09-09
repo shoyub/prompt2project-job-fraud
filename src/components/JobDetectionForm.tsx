@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { AlertTriangle, CheckCircle, XCircle, Brain, Shield, Zap } from 'lucide-react';
-=======
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,7 +20,6 @@ import {
   Cpu,
 } from "lucide-react";
 import { lstmAnalysisService } from "@/services/lstmAnalysis";
->>>>>>> a0de47b (1st commit)
 
 interface AnalysisResult {
   isLegitimate: boolean;
@@ -39,39 +29,16 @@ interface AnalysisResult {
   overallScore: number;
 }
 
-<<<<<<< HEAD
-=======
 interface ModelResult extends AnalysisResult {
   modelName: string;
   modelType: "BERT" | "LSTM";
 }
 
->>>>>>> a0de47b (1st commit)
 interface JobDetectionFormProps {
   onAnalyze?: (jobPosting: string) => Promise<AnalysisResult>;
 }
 
 export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
-<<<<<<< HEAD
-  const [jobPosting, setJobPosting] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [result, setResult] = useState<AnalysisResult | null>(null);
-
-  const handleAnalyze = async () => {
-    if (!jobPosting.trim()) return;
-    
-    setIsAnalyzing(true);
-    
-    try {
-      // If onAnalyze prop is provided, use it; otherwise use mock analysis
-      const analysisResult = onAnalyze 
-        ? await onAnalyze(jobPosting)
-        : await mockAnalysis(jobPosting);
-      
-      setResult(analysisResult);
-    } catch (error) {
-      console.error('Analysis failed:', error);
-=======
   const [jobPosting, setJobPosting] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [results, setResults] = useState<ModelResult[]>([]);
@@ -117,7 +84,6 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
       // Fallback to basic mock analysis
       const mockResult = await mockAnalysis(jobPosting);
       setCombinedResult(mockResult);
->>>>>>> a0de47b (1st commit)
     } finally {
       setIsAnalyzing(false);
     }
@@ -126,31 +92,6 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
   // Mock analysis function for demonstration
   const mockAnalysis = async (text: string): Promise<AnalysisResult> => {
     // Simulate API delay
-<<<<<<< HEAD
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Simple heuristic analysis
-    const suspiciousWords = ['urgent', 'immediate', 'work from home', 'no experience', 'easy money', 'guaranteed'];
-    const legitimateWords = ['benefits', 'qualifications', 'company', 'responsibilities', 'experience required'];
-    
-    const suspiciousCount = suspiciousWords.filter(word => 
-      text.toLowerCase().includes(word)
-    ).length;
-    
-    const legitimateCount = legitimateWords.filter(word => 
-      text.toLowerCase().includes(word)
-    ).length;
-    
-    const score = Math.max(0, Math.min(100, 70 + (legitimateCount * 10) - (suspiciousCount * 15)));
-    const isLegitimate = score > 50;
-    
-    return {
-      isLegitimate,
-      confidence: score,
-      riskFactors: suspiciousCount > 0 ? ['Suspicious keywords detected', 'Unrealistic promises'] : [],
-      legitimacyFactors: legitimateCount > 0 ? ['Professional language', 'Clear requirements'] : [],
-      overallScore: score
-=======
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // Simple heuristic analysis
@@ -196,20 +137,13 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
           ? ["Professional language", "Clear requirements"]
           : [],
       overallScore: score,
->>>>>>> a0de47b (1st commit)
     };
   };
 
   const getResultColor = (score: number) => {
-<<<<<<< HEAD
-    if (score >= 70) return 'success';
-    if (score >= 40) return 'warning';
-    return 'danger';
-=======
     if (score >= 70) return "default";
     if (score >= 40) return "secondary";
     return "destructive";
->>>>>>> a0de47b (1st commit)
   };
 
   const getResultIcon = (score: number) => {
@@ -227,12 +161,8 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
             AI Job Posting Analysis
           </CardTitle>
           <CardDescription>
-<<<<<<< HEAD
-            Paste a job posting below to analyze its authenticity using advanced ML algorithms
-=======
             Paste a job posting below to analyze its authenticity using LSTM
             neural network
->>>>>>> a0de47b (1st commit)
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -242,13 +172,8 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
             onChange={(e) => setJobPosting(e.target.value)}
             className="min-h-[200px] bg-background/50 border-border resize-none"
           />
-<<<<<<< HEAD
-          
-          <Button 
-=======
 
           <Button
->>>>>>> a0de47b (1st commit)
             onClick={handleAnalyze}
             disabled={!jobPosting.trim() || isAnalyzing}
             variant="premium"
@@ -276,13 +201,9 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-primary animate-glow" />
-<<<<<<< HEAD
-                <span className="text-sm font-medium">AI Analysis in Progress</span>
-=======
                 <span className="text-sm font-medium">
                   AI Analysis in Progress
                 </span>
->>>>>>> a0de47b (1st commit)
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
@@ -299,15 +220,6 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
         </Card>
       )}
 
-<<<<<<< HEAD
-      {result && (
-        <Card className="bg-gradient-card border-border/50 backdrop-blur-sm animate-fade-in">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              {getResultIcon(result.overallScore)}
-              Analysis Results
-            </CardTitle>
-=======
       {/* Individual Model Results */}
       {results.length > 0 && (
         <div className="space-y-4">
@@ -367,24 +279,10 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
             <CardDescription>
               Results from LSTM neural network analysis
             </CardDescription>
->>>>>>> a0de47b (1st commit)
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-<<<<<<< HEAD
-                <span className="text-sm font-medium">Legitimacy Score</span>
-                <Badge variant={getResultColor(result.overallScore) as any}>
-                  {result.overallScore}%
-                </Badge>
-              </div>
-              <Progress 
-                value={result.overallScore} 
-                className={`h-3 ${
-                  result.overallScore >= 70 ? '[&>div]:bg-success' :
-                  result.overallScore >= 40 ? '[&>div]:bg-warning' :
-                  '[&>div]:bg-danger'
-=======
                 <span className="text-sm font-medium">
                   Overall Legitimacy Score
                 </span>
@@ -402,33 +300,23 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
                     : combinedResult.overallScore >= 40
                     ? "[&>div]:bg-warning"
                     : "[&>div]:bg-danger"
->>>>>>> a0de47b (1st commit)
                 }`}
               />
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
-<<<<<<< HEAD
-              {result.legitimacyFactors.length > 0 && (
-=======
               {combinedResult.legitimacyFactors.length > 0 && (
->>>>>>> a0de47b (1st commit)
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium text-success flex items-center gap-1">
                     <CheckCircle className="w-4 h-4" />
                     Positive Indicators
                   </h4>
                   <ul className="space-y-1">
-<<<<<<< HEAD
-                    {result.legitimacyFactors.map((factor, index) => (
-                      <li key={index} className="text-sm text-muted-foreground flex items-center gap-2">
-=======
                     {combinedResult.legitimacyFactors.map((factor, index) => (
                       <li
                         key={index}
                         className="text-sm text-muted-foreground flex items-center gap-2"
                       >
->>>>>>> a0de47b (1st commit)
                         <div className="w-1.5 h-1.5 rounded-full bg-success" />
                         {factor}
                       </li>
@@ -437,27 +325,18 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
                 </div>
               )}
 
-<<<<<<< HEAD
-              {result.riskFactors.length > 0 && (
-=======
               {combinedResult.riskFactors.length > 0 && (
->>>>>>> a0de47b (1st commit)
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium text-danger flex items-center gap-1">
                     <XCircle className="w-4 h-4" />
                     Risk Factors
                   </h4>
                   <ul className="space-y-1">
-<<<<<<< HEAD
-                    {result.riskFactors.map((factor, index) => (
-                      <li key={index} className="text-sm text-muted-foreground flex items-center gap-2">
-=======
                     {combinedResult.riskFactors.map((factor, index) => (
                       <li
                         key={index}
                         className="text-sm text-muted-foreground flex items-center gap-2"
                       >
->>>>>>> a0de47b (1st commit)
                         <div className="w-1.5 h-1.5 rounded-full bg-danger" />
                         {factor}
                       </li>
@@ -469,17 +348,10 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
 
             <div className="p-4 rounded-lg bg-muted/20 border border-border/50">
               <p className="text-sm">
-<<<<<<< HEAD
-                <strong>Recommendation:</strong>{' '}
-                {result.isLegitimate 
-                  ? 'This job posting appears to be legitimate. However, always verify company details independently.'
-                  : 'This job posting shows signs of being potentially fraudulent. Exercise caution and verify all details.'}
-=======
                 <strong>Recommendation:</strong>{" "}
                 {combinedResult.isLegitimate
                   ? "This job posting appears to be legitimate based on AI analysis. However, always verify company details independently."
                   : "This job posting shows signs of being potentially fraudulent. Exercise caution and verify all details."}
->>>>>>> a0de47b (1st commit)
               </p>
             </div>
           </CardContent>
@@ -487,8 +359,4 @@ export function JobDetectionForm({ onAnalyze }: JobDetectionFormProps) {
       )}
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a0de47b (1st commit)
